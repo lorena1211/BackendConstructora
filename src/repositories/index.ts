@@ -7,3 +7,5 @@ export * from './pais.repository';
 export * from './proceso-pago.repository';
 export * from './proyecto.repository';
 export * from './solicitud.repository';
+export * from './tipo-usuario.repository';
+export * from './usuario.repository';
