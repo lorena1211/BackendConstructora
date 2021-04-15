@@ -18,3 +18,4 @@ export * from './ciudad-cliente.controller';
 export * from './cliente-solicitud.controller';
 export * from './usuario-tipo-usuario.controller';
 export * from './tipo-usuario-usuario.controller';
+export * from './usuario.controller';
