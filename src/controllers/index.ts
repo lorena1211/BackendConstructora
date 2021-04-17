@@ -30,3 +30,4 @@ export * from './usuario.controller';
 
 export * from './cliente.controller';
 export * from './cargar-archivo.controller';
+export * from './descarga-archivos.controller';
