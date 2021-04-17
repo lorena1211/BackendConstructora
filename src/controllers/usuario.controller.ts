@@ -9,7 +9,7 @@ import {
 } from '@loopback/repository';
 import {
   del, get,
-  getModelSchemaRef, param,
+  getModelSchemaRef, HttpErrors, param,
 
 
   patch, post,
@@ -24,8 +24,9 @@ import {
 } from '@loopback/rest';
 import {Keys as llaves} from '../config/keys';
 import {Usuario} from '../models';
+import {Credenciales} from '../models/credenciales.model';
 import {UsuarioRepository} from '../repositories';
-import {FuncionesGeneralesService, NotificacionesService} from '../services';
+import {FuncionesGeneralesService, NotificacionesService, SesionService} from '../services';
 
 export class UsuarioController {
   constructor(
@@ -34,7 +35,9 @@ export class UsuarioController {
     @service(FuncionesGeneralesService)
     public servicioFunciones: FuncionesGeneralesService,
     @service(NotificacionesService)
-    public servicioNotificaciones: NotificacionesService
+    public servicioNotificaciones: NotificacionesService,
+    @service(SesionService)
+    public servicioSesion: SesionService
   ) { }
 
   @post('/usuarios')
@@ -65,6 +68,7 @@ export class UsuarioController {
     usuario.clave = claveCifrada;
     let usuarioCreado = await this.usuarioRepository.create(usuario);
 
+    //Notificación por correo electronico
     if (usuarioCreado) {
       let contenido = `Buen dia. <br /> Usted se ha registrado en la plataforma de la Constructora. Sus datos de acceso son: <br />
       <ul>
@@ -76,10 +80,38 @@ export class UsuarioController {
       `;
       this.servicioNotificaciones.EnviarCorreoElectronico(usuarioCreado.nombre_usuario, llaves.asuntoNuevoUsuario, contenido);
     }
-    //Notificación por correo electronico
 
     return usuarioCreado
 
+  }
+
+  @post('/identificar-usuario')
+  async validar(
+    @requestBody(
+      {
+        content: {
+          'aplication/json': {
+            schema: getModelSchemaRef(Credenciales)
+          }
+        }
+      }
+    )
+    credenciales: Credenciales
+  ): Promise<object> {
+    let usuario = await this.usuarioRepository.findOne({where: {nombre_usuario: credenciales.nombre_usuario, clave: credenciales.clave}});
+    if (usuario) {
+      //Generar un token
+      let token = this.servicioSesion.GenerarToken(usuario);
+      return {
+        user: {
+          username: usuario.nombre_usuario,
+          role: usuario.tipoUsuarioId
+        },
+        tk: token
+      };
+    } else {
+      throw new HttpErrors[401]("Los datos no son correctos");
+    }
   }
 
   @get('/usuarios/count')
