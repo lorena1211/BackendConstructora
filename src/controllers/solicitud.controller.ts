@@ -53,6 +53,7 @@ export class SolicitudController {
     return this.solicitudRepository.create(solicitud);
   }
 
+  @authenticate.skip()
   @get('/solicitudes/count')
   @response(200, {
     description: 'Solicitud model count',
@@ -64,6 +65,7 @@ export class SolicitudController {
     return this.solicitudRepository.count(where);
   }
 
+  @authenticate.skip()
   @get('/solicitudes')
   @response(200, {
     description: 'Array of Solicitud model instances',

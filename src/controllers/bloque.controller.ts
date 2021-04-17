@@ -53,6 +53,7 @@ export class BloqueController {
     return this.bloqueRepository.create(bloque);
   }
 
+  @authenticate.skip()
   @get('/bloques/count')
   @response(200, {
     description: 'Bloque model count',

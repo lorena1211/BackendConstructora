@@ -53,6 +53,7 @@ export class InmuebleController {
     return this.inmuebleRepository.create(inmueble);
   }
 
+  @authenticate.skip()
   @get('/inmuebles/count')
   @response(200, {
     description: 'Inmueble model count',

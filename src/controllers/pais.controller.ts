@@ -25,7 +25,7 @@ import {
 import {Pais} from '../models';
 import {PaisRepository} from '../repositories';
 
-@authenticate('admin', 'seller')
+@authenticate('admin')
 export class PaisController {
   constructor(
     @repository(PaisRepository)
@@ -53,6 +53,7 @@ export class PaisController {
     return this.paisRepository.create(pais);
   }
 
+  @authenticate.skip()
   @get('/pais/count')
   @response(200, {
     description: 'Pais model count',

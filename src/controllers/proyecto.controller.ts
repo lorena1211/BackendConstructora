@@ -53,6 +53,7 @@ export class ProyectoController {
     return this.proyectoRepository.create(proyecto);
   }
 
+  @authenticate.skip()
   @get('/proyectos/count')
   @response(200, {
     description: 'Proyecto model count',

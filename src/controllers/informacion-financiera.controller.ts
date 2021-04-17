@@ -53,6 +53,7 @@ export class InformacionFinancieraController {
     return this.informacionFinancieraRepository.create(informacionFinanciera);
   }
 
+  @authenticate.skip()
   @get('/informaciones-financieras/count')
   @response(200, {
     description: 'InformacionFinanciera model count',
@@ -64,6 +65,7 @@ export class InformacionFinancieraController {
     return this.informacionFinancieraRepository.count(where);
   }
 
+  @authenticate.skip()
   @get('/informaciones-financieras')
   @response(200, {
     description: 'Array of InformacionFinanciera model instances',

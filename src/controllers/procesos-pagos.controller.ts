@@ -53,6 +53,7 @@ export class ProcesosPagosController {
     return this.procesoPagoRepository.create(procesoPago);
   }
 
+  @authenticate.skip()
   @get('/procesos-pagos/count')
   @response(200, {
     description: 'ProcesoPago model count',
@@ -64,6 +65,7 @@ export class ProcesosPagosController {
     return this.procesoPagoRepository.count(where);
   }
 
+  @authenticate.skip()
   @get('/procesos-pagos')
   @response(200, {
     description: 'Array of ProcesoPago model instances',
