@@ -20,4 +20,16 @@ export class SesionService {
     }, llaves.claveSecretaJWT);
     return tk;
   }
+
+  /**
+   * Función para verificar la validez de token JWT
+   */
+  VerificarTokenJWT(token: string) {
+    try {
+      let decoded = jwt.verify(token, llaves.claveSecretaJWT);
+      return decoded;
+    } catch {
+      return null;
+    }
+  }
 }
