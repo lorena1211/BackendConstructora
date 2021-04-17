@@ -1,6 +1,7 @@
 export * from './bloque-inmueble.controller';
 export * from './bloque-proyecto.controller';
 export * from './bloque.controller';
+export * from './cargar-archivos.controller';
 export * from './ciudad-cliente.controller';
 export * from './ciudad-pais.controller';
 export * from './ciudad-proyecto.controller';
@@ -8,6 +9,8 @@ export * from './ciudad.controller';
 export * from './cliente-ciudad.controller';
 export * from './cliente-informacion-financiera.controller';
 export * from './cliente-solicitud.controller';
+export * from './cliente.controller';
+export * from './descarga-archivos.controller';
 export * from './informacion-financiera-cliente.controller';
 export * from './informacion-financiera.controller';
 export * from './inmueble-bloque.controller';
@@ -28,6 +31,4 @@ export * from './tipo-usuario-usuario.controller';
 export * from './usuario-tipo-usuario.controller';
 export * from './usuario.controller';
 
-export * from './cliente.controller';
-export * from './descarga-archivos.controller';
-export * from './cargar-archivos.controller';
+
