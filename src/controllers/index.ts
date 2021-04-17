@@ -29,3 +29,4 @@ export * from './usuario-tipo-usuario.controller';
 export * from './usuario.controller';
 
 export * from './cliente.controller';
+export * from './cargar-archivo.controller';
