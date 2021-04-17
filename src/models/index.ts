@@ -9,3 +9,4 @@ export * from './solicitud.model';
 export * from './cliente.model';
 export * from './usuario.model';
 export * from './tipo-usuario.model';
+export * from './resetear-clave.model';
