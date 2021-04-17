@@ -29,7 +29,7 @@ import {Credenciales} from '../models/credenciales.model';
 import {UsuarioRepository} from '../repositories';
 import {FuncionesGeneralesService, NotificacionesService, SesionService} from '../services';
 
-@authenticate('admin')
+//@authenticate('admin')
 export class UsuarioController {
   constructor(
     @repository(UsuarioRepository)
@@ -42,6 +42,7 @@ export class UsuarioController {
     public servicioSesion: SesionService
   ) { }
 
+  @authenticate('admin')
   @post('/usuarios')
   @response(200, {
     description: 'Usuario model instance',
@@ -70,12 +71,15 @@ export class UsuarioController {
     usuario.clave = claveCifrada;
     let usuarioCreado = await this.usuarioRepository.create(usuario);
 
+    let TipoUsuario = usuario.tipoUsuarioId;
+
     //Notificación por correo electronico
     if (usuarioCreado) {
       let contenido = `Buen dia. <br /> Usted se ha registrado en la plataforma de la Constructora. Sus datos de acceso son: <br />
       <ul>
         <li>Usuario: ${usuarioCreado.nombre_usuario}</li>
         <li>Contraseña: ${claveAleatoria}</li>
+        <li>Tipo de usuario: ${TipoUsuario}</li>
       </ul>
 
       Gracias por confiar en nuestra plataforma de proyectos de la Constructora.
